@@ -1,0 +1,1431 @@
+                     ** Upstox app
+                    ________________
+
+
+  #Page-1 App.js
+
+
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import React ,{Component} from 'react';
+import {Text,View,Image,StyleSheet,TextInput,Button,headerBackImage}from 'react-native';
+// import {Component}from 'react';
+// import DropDownPicker from 'react-native-dropdown-picker';
+import splash from './screen/splash'
+import signin from './screen/signin'
+import watchlist from'./screen/watchlist'
+import orders from'./screen/orders'
+import portfolio from'./screen/portfolio';
+import funds from'./screen/funds';
+import invest from './screen/invest';
+const Stack = createStackNavigator();
+
+class App extends Component {
+
+
+  render() {
+    return ( 
+      <NavigationContainer>
+      <Stack.Navigator initialRouteName="splash">
+      <Stack.Screen name="splash" component={splash} 
+      options={{ headerShown: false}}/>
+
+        <Stack.Screen name="Log in to Upstox" component={signin} 
+         options={{headerShown: true }}
+          options={{headerStyle:{backgroundColor:'#0046bb'},headerTintColor:'white' }}/>
+
+            <Stack.Screen name="Watchlist" component={watchlist} 
+          options={{ headerShown: true}}
+           options={{headerStyle:{backgroundColor:'#0046bb'},headerTintColor:'white' }}/>
+
+            <Stack.Screen name="Orders" component={orders} 
+          options={{ headerShown: true}}
+           options={{headerStyle:{backgroundColor:'#0046bb'},headerTintColor:'white' }}/>
+
+        <Stack.Screen  name="Portfolio" component={portfolio}
+        options={{ headerShown: true}} 
+         options={{headerStyle:{backgroundColor:'#0046bb'},headerTintColor:'white' }}/>
+
+         
+        <Stack.Screen  name="Funds" component={funds}
+        options={{ headerShown: true}} 
+         options={{headerStyle:{backgroundColor:'#0046bb'},headerTintColor:'white' }}/>
+
+<Stack.Screen  name="Invest" component={invest}
+        options={{ headerShown: true}} 
+         options={{headerStyle:{backgroundColor:'#0046bb'},headerTintColor:'white' }}/>
+
+      </Stack.Navigator>
+    </NavigationContainer>
+    );
+  }}
+     
+export default App;
+
+
+
+
+   #Page-2 Index
+
+
+
+   import {AppRegistry} from 'react-native';
+import App from './App';
+import {name as appName} from './app.json';
+// import splash from './screen/splash';
+// import signin    from './screen/signin';
+// import watchlist    from './screen/watchlist';
+// import orders    from './screen/orders';
+// import portfolio    from './screen/portfolio';
+// import funds    from './screen/funds';
+// import invest    from './screen/invest';
+
+AppRegistry.registerComponent(appName, () => App);
+
+// AppRegistry.registerComponent(appName, () => splash);
+// AppRegistry.registerComponent(appName, () => signin);
+// AppRegistry.registerComponent(appName, () => watchlist);
+// AppRegistry.registerComponent(appName, () => orders);
+// AppRegistry.registerComponent(appName, () => portfolio);
+// AppRegistry.registerComponent(appName, () => funds);
+// AppRegistry.registerComponent(appName, () => invest);
+
+
+
+     #Page-3 Splash Screen
+
+
+
+import React, { Component } from 'react';  
+ import { Platform, StyleSheet, View, Text,  
+ Image, TouchableOpacity, Alert } from 'react-native'; 
+ import LottieView from 'lottie-react-native';
+ import AnimatedSplash from "react-native-animated-splash-screen";
+
+
+ export default class splash extends Component{  
+   constructor(){  
+     super();  
+     this.state={  
+     isVisible : true,  
+    }  
+  }  
+   Hide_Splash_Screen=()=>{  
+    this.setState({   
+      isVisible : false   
+    });  
+  }  
+   
+  componentDidMount(){  
+    var that = this;  
+    setTimeout(async()=>{
+        this.props.navigation.replace('signin')  
+      that.Hide_Splash_Screen(); 
+    },7000);
+   }  
+
+   componentDidMount(){
+        this.animation.play();
+        this.animation.play(5,120)
+      }
+   
+    render()  
+    {  
+        let Splash_Screen = (  
+          <LottieView 
+                   ref={animation =>{
+                     this.animation = animation;
+                    }}
+                   source={require('../assets/animation_knyn1bxs.json')} 
+                   autoPlay
+                   loop = {false}
+                   speed = {0.2}
+                   onAnimationFinish = {() =>{
+                     console.log('Animation Finished!')
+                     this.props.navigation.replace ('Log in to Upstox');
+                   }
+                   }
+                   />
+              )  
+         return(  
+             <View style = { styles.MainContainer }>   
+                 {  
+                  (this.state.isVisible==true)?Splash_Screen:null  
+                }  
+            </View>  
+              );  
+    }  
+}  
+ const styles = StyleSheet.create(  
+{  
+    MainContainer:  
+    {  
+        flex: 1,  
+        justifyContent: 'center',  
+        alignItems: 'center',  
+        paddingTop: ( Platform.OS === 'android' ) ? 20 : 0  
+    },  
+   
+    // SplashScreen_RootView:  
+    // {  
+    //     justifyContent: 'center',  
+    //     flex:1,  
+    //     margin:0,  
+    //     position: 'absolute',  
+    //     width: '100%',  
+    //     height: '100%',  
+    //   },  
+   
+    // SplashScreen_ChildView:  
+    // {  
+    //     justifyContent: 'center',  
+    //     alignItems: 'center',  
+    //     // backgroundColor: `#f8f8ff`,  
+    //     flex:1,  
+    // },  
+}); 
+
+
+
+
+      #Page-4 Signin Screen
+
+
+import React from 'react';
+import {Text,View,Image,StyleSheet,TextInput,ScrollView,TouchableOpacity}from 'react-native';
+import {Component}from 'react';
+
+
+class signin extends Component {
+constructor(props) {
+  super(props);
+
+
+ }
+  
+  render() {
+    return ( 
+     <View style={styles.box1}>
+     <ScrollView>
+        <View style={styles.textInput}>
+          <TextInput
+          placeholder="User Id"
+          placeholderTextColor={`white`}
+          maxLength={40}
+          style={{color:'white'}}
+          />
+        </View>
+        <View style={styles.forgot}>
+          <Text style={styles.forgotxt}>Forgot User ID?</Text>
+        </View>
+
+         <View style={styles.textInput}>
+          <TextInput placeholder="Password"
+          placeholderTextColor={'white'}
+           style={{color:'white'}}
+          />
+         </View >
+         <View style={styles.forgot}>
+          <Text style={styles.forgotxt}>Forgot Password?</Text>
+        </View>
+
+     <View  style={styles.touchOpBtnViewStyle}>
+     <TouchableOpacity onPress={()=> this.props.navigation.navigate('Watchlist')}>
+       <Text  style={styles.sbmtbtn}>   Sign in    </Text>
+       </TouchableOpacity>  
+     </View> 
+   
+   
+   <View style={styles.trynow}>
+       <TouchableOpacity>
+     <Image source={require('../images/flag.png')} tintColor='darkblack' style={{height:45,width:45,left:300,top:10,}}/>
+     <Text style={{fontSize:20,fontWeight:"bold",left:20,bottom:25}}>Try now</Text>
+     </TouchableOpacity>
+    
+   
+       <TouchableOpacity>
+     <Image source={require('../images/create.png')} tintColor='black' style={{height:35,width:35,left:300,top:0}}/>
+     <Text style={{fontSize:20,fontWeight:"bold",left:20,bottom:35}}>Create a new account</Text>
+     </TouchableOpacity>
+  
+   </View>
+   </ScrollView>
+</View> 
+    
+ );
+  }
+  }
+  
+const styles = StyleSheet.create({
+  
+  box1:{
+  // justifyContent:"center",
+     flex:1,
+     backgroundColor:"#0046bb",
+  },
+  trynow:{
+    justifyContent:"center",
+    backgroundColor:"white",
+    height:140,
+    width:800,
+    marginTop:300
+  },
+  forgot:{
+    left:0,
+
+  },
+  forgotxt:{
+    alignItems:'center',alignSelf:'center',
+    top:20,
+    left:90,
+    fontSize:16,
+    fontFamily:'Roboto,sans-serif',
+    color:'white',
+  },
+  container:{
+    backgroundColor:'#cacaca',
+},
+sbmtbtn:{
+color:"blue",
+fontSize:18
+},
+
+  textInput:{
+    top:16,
+    right:0,
+    height:60,
+    width:300,
+    alignSelf:'center',
+    justifyContent:'center',  
+    borderBottomColor:'white',
+    borderBottomWidth:2,
+    // borderWidth:1,
+    margin:0,
+    paddingLeft:0,paddingBottom:0,
+    // backgroundColor: '#ffff',
+    // borderRadius:5,
+  },
+
+
+
+touchOpBtnViewStyle:{
+  justifyContent:'center',
+  alignSelf:'center',
+  width:340,
+  right:0,
+  paddingLeft:0,
+  top:60,
+  paddingTop:16,
+  paddingBottom:16,
+  padding:0,
+  borderRadius:5, 
+  fontWeight: "bold",
+  // paddingVertical:400,
+  // paddingHorizontal:162,
+  backgroundColor:'#ffff',
+  borderWidth:0,
+},
+
+});
+export default signin;
+
+
+
+
+     #Page-5 Watchlist Screen
+
+
+import React, { Component } from 'react';
+import { Text, View, ScrollView, StyleSheet, Image,
+        TouchableOpacity,FlatList} from 'react-native';
+import IconLeft from 'react-native-vector-icons/AntDesign';
+
+        const section1 = [
+            {
+                id: '1',
+                title1: 'Nifty FMCG',
+                subtitle1: 'NSE',
+                title2:' ₹ 33865.70',
+                subtitle2:'+139.60(0.41%)'
+            },
+            {
+                id: '2',
+                title1: 'INDIAMART',                              
+                subtitle1: 'NSE EQ',
+                title2:'₹ 8356.35',
+                subtitle2:'+102.60(1.24%)',                                                                 
+            },
+            {
+                id: '3',
+                title1: 'HINDUNILVR',
+                subtitle1: 'NSE EQ ', 
+                title2:'₹ 2360.65',
+                subtitle2:'+52.90(2.29%)',                                              
+            },
+            {
+                id: '4',
+                title1: 'TATAINVEST',                                
+                subtitle1: 'NSE EQ',                                                 
+                title2:'₹ 1018.50',
+                subtitle2:'+18.35(1.83%)',
+            },
+            {
+                id: '5',
+                title1: 'VMART',                                          
+                subtitle1: 'NSE EQ', 
+                title2:'₹ 2616.80',
+                subtitle2:' +55.85(2.18%)'                                              
+            },
+            {
+                id: '6',
+                title1:'NTPC',                                        
+                subtitle1: 'NSE EQ', 
+                title2:'₹ 102.40',
+                subtitle2:' -0.15(0.15%)'                                                  
+            },
+            {
+                id: '7',
+                title1: 'MARICO',                                           
+                subtitle1: 'NSE EQ',
+                title2:'₹ 406.35',
+                subtitle2:'-5.25(1.28%)'                                                    
+            },
+            {
+                id: '8',
+                title1: 'SPICEJET',                                     
+                subtitle1: 'NSE EQ',
+                title2:'₹ 62.00',
+                subtitle2:'+1.20(1.97%)'                                                     
+            },
+            {
+                id: '9',
+                title1: 'BAJAJHIND',                                     
+                subtitle1: 'NSE EQ',
+                title2:'₹ 7.00',
+                subtitle2:'+0.10(1.45%)'                                                     
+            },
+            {
+                id: '10',
+                title1: 'MAHABANK',                                     
+                subtitle1: 'NSE EQ',
+                title2:'₹ 24.75',
+                subtitle2:'+0.99(3.77%)'                                                     
+            },
+            {
+                id: '11',
+                title1: 'IDFC',                                     
+                subtitle1: 'NSE EQ',
+                title2:'₹ 51.80',
+                subtitle2:'+2.50(5.07%)'                                                     
+            },
+            {
+                id: '12',
+                title1: 'MAGMA',                                     
+                subtitle1: 'NSE EQ',
+                title2:'₹ 117.55',
+                subtitle2:'+1.15(0.97%)'                                                     
+            },
+        ];
+
+class watchlist extends Component{
+
+  render(){
+   return(
+    <View style={styles.container}>
+
+                     {/* <View style={styles.headerTextView}>
+                         <View style={{ flex: 2 }}>
+                             <Text style={styles.headerText}>Watchlist</Text>
+                             <TouchableOpacity  >
+                                 <Text style={styles.headerTouchOpTxt}>Favourites</Text>
+                              
+                             </TouchableOpacity>
+                       </View>
+                     </View> */}
+
+                        <View style={styles.headerTextView2}>
+                        <View style={{ flex: 2 }}> 
+                          <Text style={styles.headerText2}>Sensex ₹48386.51</Text>
+                          <Text style={styles.headerTouchOpTxt2}>+508.06(1.06%)</Text>
+                          </View>
+
+                          <View style={{ flex: 2 }}> 
+                          <Text style={styles.headerText3}>NIFTY ₹14386.30</Text>
+                          <Text style={styles.headerTouchOpTxt3}>+142.06(2.02%)</Text>
+                          </View>
+                          </View>
+          <ScrollView>
+                     <View>
+                         <ScrollView showsVerticalScrollIndicator={false}>
+                         <View style={styles.sectionView}>
+                    <FlatList
+                        keyExtractor={(item) => item.id}
+                        data={section1}
+                        renderItem={({ item }) => (
+                            <View style={styles.innersectionView} key={item.id} >
+                                <View style={styles.btnView}>
+                                    <TouchableOpacity style={styles.btn}>
+                                        <Text style={styles.titletxt}>{item.title1}</Text>
+                                        <Text style={styles.subtitletxt}>{item.subtitle1}</Text>
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={styles.icon}>
+                                <Image  source={require('../images/candle.png')} tintColor='blue' style={[{height:35,width:35}]} />
+                                    {/* <IconLeft name='graph' size={18} color='grey' /> */}
+                                </View>
+                                <View style={styles.btnView}>
+                                    <TouchableOpacity style={styles.btn}>
+                                        <Text style={styles.titletxt}>{item.title2}</Text>
+                                        <Text style={styles.subtitletxt}>{item.subtitle2}</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        )}
+                    />
+                    </View>
+                     </ScrollView>
+                     </View>
+                 </ScrollView>    
+                  
+                     
+             <View style={styles.footerTextView}>
+                   <TouchableOpacity >
+                    <View style={{alignItems:'center'}}>
+                        <Image  source={require('../images/wicon.png')} tintColor='blue' style={[{height:35,width:35}]} />
+                        <Text style={{fontSize:14,color:'rgb(102, 102, 102)',paddingTop:0,color:"blue"}}>Watchlist</Text>
+                     </View>
+                    </TouchableOpacity >
+
+                   <TouchableOpacity onPress={()=> this.props.navigation.navigate('Orders')}>
+                     <View style={{alignItems:'center'}}>
+                        <Image  source={require('../images/oicon.png')} tintColor='dimgrey' style={{height:35,width:35}} />
+                        <Text style={{fontSize:14,color:'rgb(102, 102, 102)',paddingTop:0}}>Orders</Text>
+                     </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={()=> this.props.navigation.navigate('Portfolio')}>
+                     <View style={{alignItems:'center'}}>
+                        <Image  source={require('../images/picon.png')} tintColor='dimgrey' style={{height:35,width:35}} />
+                        <Text style={{fontSize:14,color:'rgb(102, 102, 102)'}}>Portfolio</Text>
+                     </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={()=> this.props.navigation.navigate('Funds')} >
+                     <View style={{alignItems:'center'}}>
+                     <Image  source={require('../images/ficon.png')} tintColor='dimgrey' style={{height:35,width:35}} />
+                        {/* <IconUser name="user-alt" size={25} color='dimgrey'/> */}
+                        <Text style={{fontSize:14,color:'rgb(102, 102, 102)'}}>Funds</Text>
+                     </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={()=> this.props.navigation.navigate('Invest')}>
+                     <View style={{alignItems:'center'}}>
+                     <Image  source={require('../images/iicon.png')} tintColor='dimgrey' style={{height:35,width:35}} />
+                        {/* <IconUser name="user-alt" size={25} color='dimgrey'/> */}
+                        <Text style={{fontSize:14,color:'rgb(102, 102, 102)'}}>Invest</Text>
+                     </View>
+                    </TouchableOpacity>
+                 
+                </View>
+            </View>          
+   );
+  }
+}
+const styles = StyleSheet.create({
+         container: {
+             flex: 1,
+             backgroundColor:"white",
+         },
+         headerText: {
+             paddingLeft: 38,
+             paddingTop: 6,
+             fontFamily: 'Roboto,sans-serif',
+             fontSize: 22,
+             color: 'white',
+             fontWeight: 'bold',
+
+         },
+         headerText2: {
+            paddingLeft: 12,
+            paddingTop: 6,
+            fontFamily: 'Roboto,sans-serif',
+            fontSize: 16,
+            color: 'dimgrey',
+            fontWeight: 'bold',
+
+        },
+        headerText3: {
+            paddingLeft: 36,
+            paddingTop: 6,
+            fontFamily: 'Roboto,sans-serif',
+            fontSize: 16,
+            color: 'dimgrey',
+            fontWeight: 'bold',
+
+        },
+        headerTouchOpTxt3: {
+            paddingLeft: 36,
+            color: 'dimgrey'
+        },
+         headerTextView: {
+             backgroundColor: 'blue',
+             height: 65,
+             flexDirection: 'row'
+         },
+         headerTextView2: {
+            backgroundColor: 'white',
+            height: 60,
+            flexDirection: 'row',left:5
+        },
+         headerTouchOpTxt: {
+             paddingLeft: 38,
+             color: 'white'
+         },
+         headerTouchOpTxt2: {
+            paddingLeft: 12,
+            color: 'dimgrey'
+        },
+         headerIconView:{
+              flexDirection: 'row-reverse',
+              alignItems: 'center', 
+              paddingTop: 15 
+         },  
+         
+         sectionView:{
+            marginTop:'1%',
+            marginBottom:'1%',
+        },
+        innersectionView:{
+            backgroundColor: 'white', 
+            flexDirection:'row', 
+            marginTop:'0.5%',
+        },
+        btn:{
+            left:20,
+            backgroundColor: 'white',
+            margin: '4%' 
+        },
+        btnView:{
+            flex: 6,right:10
+        },
+        subtitletxt:{
+            fontSize:14,
+            fontFamily:'Roboto,sans-serif',
+            color: '#666666'
+        },
+        titletxt: {
+            fontSize: 16,
+            fontFamily: 'Roboto,sans-serif',
+            color: 'black'
+        },
+        icon:{
+            flex: 4,
+            justifyContent:'center',left:20
+        },
+
+         footerTextView:{
+            marginTop:0, 
+            height: 60,
+            flexDirection: 'row',
+            alignItems: 'center', 
+            justifyContent:'space-around',
+            bottom:0,
+            fontWeight:"bold",
+            color:'blue' 
+       }           
+        
+        }
+)
+export default watchlist;
+
+
+
+
+
+
+        #Page-6 Orders Screen
+
+
+import React, { Component } from 'react';
+import { Text, View, ScrollView, StyleSheet, Image,
+        TouchableOpacity,FlatList} from 'react-native';
+import IconLeft from 'react-native-vector-icons/AntDesign';
+
+class orders extends Component{
+
+  render(){
+   return(
+    <View style={styles.container}>
+                     
+                        <View style={styles.headerTextView2}>
+                        <View style={{ flex: 2 }}> 
+                        <TouchableOpacity>
+                          <Text style={styles.headerText2}>ALL</Text> 
+                          </TouchableOpacity>                      
+                          </View>
+
+                          <View style={{ flex: 2 }}> 
+                          <TouchableOpacity>
+                          <Text style={styles.headerText3}>OPEN</Text>
+                          </TouchableOpacity>
+                          </View>
+
+                          <View style={{ flex: 2 }}> 
+                          <TouchableOpacity>
+                          <Text style={styles.headerText3}>CLOSED</Text>
+                          </TouchableOpacity>
+                          </View>
+
+                          </View>
+              <ScrollView>
+                  
+                     <View style={styles.logo}>
+                        <Image  source={require('../images/orders.png')}  style={[{height:180,width:180}]} />
+                        <Text style={{fontSize:16,color:'rgb(102, 102, 102)',paddingTop:0,color:"black",fontWeight:"bold"}}>You haven't traded yet!</Text>
+                        <Text style={{fontSize:15,color:'rgb(102, 102, 102)',paddingTop:0,color:"black",marginTop:10}}>Start trading and your</Text>
+                        <Text style={{fontSize:15,color:'rgb(102, 102, 102)',paddingTop:0,color:"black"}}>transactions will reflect here</Text>
+                     </View>                        
+                    
+                    </ScrollView> 
+                  
+                     
+             <View style={styles.footerTextView}>
+                   <TouchableOpacity onPress={()=> this.props.navigation.navigate('Watchlist')}>
+                    <View style={{alignItems:'center'}}>
+                        <Image  source={require('../images/wicon.png')}  style={[{height:35,width:35}]} />
+                        <Text style={{fontSize:14,color:'rgb(102, 102, 102)',paddingTop:0,}}>Watchlist</Text>
+                     </View>
+                    </TouchableOpacity>
+                   <TouchableOpacity >
+                     <View style={{alignItems:'center'}}>
+                        <Image  source={require('../images/oicon.png')} tintColor='blue' style={{height:35,width:35}} />
+                        <Text style={{fontSize:14,color:'rgb(102, 102, 102)',color:"blue"}}>Orders</Text>
+                     </View>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity  onPress={()=> this.props.navigation.navigate('Portfolio')}>
+                     <View style={{alignItems:'center'}}>
+                        <Image  source={require('../images/picon.png')} tintColor='dimgrey' style={{height:35,width:35}} />
+                        <Text style={{fontSize:14,color:'rgb(102, 102, 102)'}}>Portfolio</Text>
+                     </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={()=> this.props.navigation.navigate('Funds')} >
+                     <View style={{alignItems:'center'}}>
+                     <Image  source={require('../images/ficon.png')} tintColor='dimgrey' style={{height:35,width:35}} />
+                        {/* <IconUser name="user-alt" size={25} color='dimgrey'/> */}
+                        <Text style={{fontSize:14,color:'rgb(102, 102, 102)'}}>Funds</Text>
+                     </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity  onPress={()=> this.props.navigation.navigate('Invest')}>
+                     <View style={{alignItems:'center'}}>
+                     <Image  source={require('../images/iicon.png')} tintColor='dimgrey' style={{height:35,width:35}} />
+                        {/* <IconUser name="user-alt" size={25} color='dimgrey'/> */}
+                        <Text style={{fontSize:14,color:'rgb(102, 102, 102)'}}>Invest</Text>
+                     </View>
+                    </TouchableOpacity>
+                 
+                </View>
+            </View>          
+   );
+  }
+}
+const styles = StyleSheet.create({
+         container: {
+             flex: 1,
+             backgroundColor:"white",
+         },
+logo:{
+    alignItems:'center',
+    marginTop:100,
+},
+
+         headerText: {
+             paddingLeft: 38,
+             paddingTop: 16,
+             fontFamily: 'Roboto,sans-serif',
+             fontSize: 22,
+             color: 'white',
+             fontWeight: 'bold',
+
+         },
+         headerText2: {
+            paddingLeft: 34,
+            paddingTop: 16,
+            fontSize: 14,
+            color: 'dimgrey',
+            fontWeight: 'bold',
+        },
+        headerText3: {
+            paddingLeft: 34,
+            paddingTop: 16,
+            fontSize: 14,
+            color: 'dimgrey',
+          
+        },
+      
+         
+         headerTextView2: {
+            backgroundColor: 'white',
+            height: 60,
+            flexDirection: 'row'
+        },
+         
+         headerTouchOpTxt2: {
+            paddingLeft: 18,
+            color: 'dimgrey'
+        },
+        
+        btn:{
+            backgroundColor: 'white',
+            margin: '4%' 
+        },
+        btnView:{
+            flex: 6
+        },
+        
+
+         footerTextView:{
+            top:0, 
+            height: 60,
+            flexDirection: 'row',
+            alignItems: 'center', 
+            justifyContent:'space-around',
+            bottom:0,
+            fontWeight:"bold",
+            color:'blue' 
+       }           
+        
+    }
+)
+export default orders;
+
+
+
+
+       #Page-6 Portfolio Screen
+
+
+import React, { Component } from 'react';
+import { Text, View, ScrollView, StyleSheet, Image,
+        TouchableOpacity,FlatList} from 'react-native';
+import IconLeft from 'react-native-vector-icons/AntDesign';
+
+class portfolio extends Component{
+
+  render(){
+   return(
+    <View style={styles.container}>
+                     
+                        <View style={styles.headerTextView2}>
+                        <View style={{ flex: 3 }}> 
+                        <TouchableOpacity>
+                          <Text style={styles.headerText2}>POSITIONS</Text> 
+                          </TouchableOpacity>                      
+                          </View>
+
+                          <View style={{ flex: 2 }}> 
+                          <TouchableOpacity>
+                          <Text style={styles.headerText3}>HOLDINGS</Text>
+                          </TouchableOpacity>
+                          </View>
+                          </View>
+              
+                     <ScrollView>
+                     <View style={styles.logo}>
+                        <Image  source={require('../images/pigu.png')}  style={[{height:180,width:180}]} />
+                        <Text style={{fontSize:16,color:'rgb(102, 102, 102)',paddingTop:0,color:"black",fontWeight:"bold"}}>You don't have any open positions!</Text>
+                        <Text style={{fontSize:15,color:'rgb(102, 102, 102)',paddingTop:0,color:"black",marginTop:10}}>Buid your portfolio, start</Text>
+                        <Text style={{fontSize:15,color:'rgb(102, 102, 102)',paddingTop:0,color:"black"}}>trading now!</Text>
+                     </View>                        
+                     </ScrollView>
+                     
+                  
+                     
+             <View style={styles.footerTextView}>
+                   <TouchableOpacity onPress={()=> this.props.navigation.navigate('Watchlist')}>
+                    <View style={{alignItems:'center'}}>
+                        <Image  source={require('../images/wicon.png')}  style={[{height:35,width:35}]} />
+                        <Text style={{fontSize:14,color:'rgb(102, 102, 102)',paddingTop:0,}}>Watchlist</Text>
+                     </View>
+                    </TouchableOpacity>
+
+                   <TouchableOpacity  onPress={()=> this.props.navigation.navigate('Orders')}>
+                     <View style={{alignItems:'center'}}>
+                        <Image  source={require('../images/oicon.png')} tintColor='dimgrey' style={{height:35,width:35}} />
+                        <Text style={{fontSize:14,color:'rgb(102, 102, 102)',paddingTop:0}}>Orders</Text>
+                     </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                     <View style={{alignItems:'center'}}>
+                        <Image  source={require('../images/picon.png')} tintColor='blue' style={{height:35,width:35}} />
+                        <Text style={{fontSize:14,color:'rgb(102, 102, 102)',color:"blue"}}>Portfolio</Text>
+                     </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={()=> this.props.navigation.navigate('Funds')}>
+                     <View style={{alignItems:'center'}}>
+                     <Image  source={require('../images/ficon.png')} tintColor='dimgrey' style={{height:35,width:35}} />
+                        {/* <IconUser name="user-alt" size={25} color='dimgrey'/> */}
+                        <Text style={{fontSize:14,color:'rgb(102, 102, 102)'}}>Funds</Text>
+                     </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity  onPress={()=> this.props.navigation.navigate('Invest')}>
+                     <View style={{alignItems:'center'}}>
+                     <Image  source={require('../images/iicon.png')} tintColor='dimgrey' style={{height:35,width:35}} />
+                        {/* <IconUser name="user-alt" size={25} color='dimgrey'/> */}
+                        <Text style={{fontSize:14,color:'rgb(102, 102, 102)'}}>Invest</Text>
+                     </View>
+                    </TouchableOpacity>
+                 
+                </View>
+            </View>          
+   );
+  }
+}
+const styles = StyleSheet.create({
+         container: {
+             flex: 1,
+             backgroundColor:"white",
+         },
+logo:{
+    alignItems:'center',
+    marginTop:100,
+},
+
+         headerText: {
+             paddingLeft: 38,
+             paddingTop: 16,
+             fontFamily: 'Roboto,sans-serif',
+             fontSize: 22,
+             color: 'white',
+             fontWeight: 'bold',
+
+         },
+         headerText2: {
+            paddingLeft: 28,
+            paddingTop: 16,
+            fontFamily: 'Roboto,sans-serif',
+            fontSize: 14,
+            color: 'black',
+            fontWeight: 'bold',
+        },
+        headerText3: {
+            paddingLeft: 28,
+            paddingTop: 16,
+            fontFamily: 'Roboto,sans-serif',
+            fontSize: 14,
+            color: 'dimgrey',
+            
+        },
+         
+         headerTextView2: {
+            backgroundColor: 'white',
+            height: 60,
+            flexDirection: 'row'
+        },
+         
+         headerTouchOpTxt2: {
+            paddingLeft: 18,
+            color: 'dimgrey'
+        },
+        
+        btn:{
+            backgroundColor: 'white',
+            margin: '4%' 
+        },
+        btnView:{
+            flex: 6
+        },
+        
+
+         footerTextView:{
+             top:0, 
+            height: 60,
+            flexDirection: 'row',
+            alignItems: 'center', 
+            justifyContent:'space-around',
+            bottom:0,
+            fontWeight:"bold",
+            color:'blue' 
+       }           
+        
+    }
+)
+export default portfolio;
+
+
+
+
+        #Page-7 Funds Screen
+
+
+
+import React, { Component } from 'react';
+import { Text, View, ScrollView, StyleSheet, Image,
+        TouchableOpacity,FlatList} from 'react-native';
+import IconLeft from 'react-native-vector-icons/AntDesign';
+
+class funds extends Component{
+
+  render(){
+   return(
+    <View style={styles.container}>
+                     
+                        <View style={styles.headerTextView2}>
+                        <View style={{ flex: 3 }}> 
+                        <TouchableOpacity>
+                          <Text style={styles.headerText2}>Securities</Text> 
+                          </TouchableOpacity>                      
+                          </View>
+
+                          <View style={{ flex: 2 }}> 
+                          <TouchableOpacity>
+                          <Text style={styles.headerText3}>Commodities</Text>
+                          </TouchableOpacity>
+                          </View>
+                          </View>
+              
+                   
+                       
+                        <ScrollView>
+                     <View style={styles.logo}>
+                       <View style={{backgroundColor:'#87ceeb',height:180,width:360,borderRadius:5}}>
+                           <Text style={{fontSize:16,fontWeight:'bold',left:20,top:10}}>Important message</Text>
+                           <View style={{top:10}}>
+                           <Text  style={{fontSize:14,left:20,top:10}}>Only 80% of the amount after selling Demat</Text>
+                           <Text  style={{fontSize:14,left:20,top:10}}>holdings will be available to trade on the same</Text>
+                           <Text  style={{fontSize:14,left:20,top:10}}>day.The remaining 20% will be available to</Text>
+                           <Text  style={{fontSize:14,left:20,top:10}}>trade on the next day.</Text>
+                           <View style={{left:240,top:30}}>
+                               <TouchableOpacity>
+                           <Text  style={{fontSize:14,left:20,top:10,color:'blue'}}>Learn more</Text>
+                             </TouchableOpacity>
+                           </View>
+                           </View>
+                       </View>
+                     </View> 
+
+                     <View> 
+                     <View style={styles.logo}>
+                       <View style={{backgroundColor:'#f5f5f5',height:320,width:360,borderRadius:5}}>
+                       <View style={{left:20,top:30}}>
+                         <Text style={{fontSize:16,fontWeight:'bold'}}>Available to trade</Text> 
+                         <Text style={{fontSize:20,fontWeight:'bold',left:220,bottom:20}}> ₹ 0.00</Text>
+                         </View>
+                          
+                           <View style={{left:20,top:40}}>
+                           <Text  style={{fontSize:16,fontWeight:'bold'}}>Used funds                                       ₹ 0.00</Text>
+                           <Text style={{fontSize:16,fontWeight:'bold',top:40}}>Total Funds                                      ₹ 0.00</Text>
+                           <Text style={{fontSize:16,fontWeight:'bold',top:80}}>Withdraw funds                                        </Text>
+                           <Text style={{fontSize:16,fontWeight:'bold',top:120}}>View Payment History                                        </Text>
+                           </View>
+                                       
+                     </View>
+                     </View>
+                    </View>
+                    </ScrollView>
+                
+                  <View>
+                     <View  style={styles.touchOpBtnViewStyle}>
+                     <TouchableOpacity>
+                      <Text  style={styles.sbmtbtn}>  Add Funds   </Text>
+                     </TouchableOpacity>  
+                     </View>
+                  
+                    
+
+             <View style={styles.footerTextView}>
+                   <TouchableOpacity onPress={()=> this.props.navigation.navigate('Watchlist')}>
+                    <View style={{alignItems:'center'}}>
+                        <Image  source={require('../images/wicon.png')}  style={[{height:35,width:35}]} />
+                        <Text style={{fontSize:14,color:'rgb(102, 102, 102)',paddingTop:0,}}>Watchlist</Text>
+                     </View>
+                    </TouchableOpacity>
+
+                   <TouchableOpacity  onPress={()=> this.props.navigation.navigate('Orders')}>
+                     <View style={{alignItems:'center'}}>
+                        <Image  source={require('../images/oicon.png')} tintColor='dimgrey' style={{height:35,width:35}} />
+                        <Text style={{fontSize:14,color:'rgb(102, 102, 102)',paddingTop:0}}>Orders</Text>
+                     </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity  onPress={()=> this.props.navigation.navigate('Portfolio')}>
+                     <View style={{alignItems:'center'}}>
+                        <Image  source={require('../images/picon.png')} tintColor='dimgrey' style={{height:35,width:35}} />
+                        <Text style={{fontSize:14,color:'rgb(102, 102, 102)'}}>Portfolio</Text>
+                     </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity >
+                     <View style={{alignItems:'center'}}>
+                     <Image  source={require('../images/ficon.png')} tintColor='blue' style={{height:35,width:35}} />
+                        {/* <IconUser name="user-alt" size={25} color='dimgrey'/> */}
+                        <Text style={{fontSize:14,color:'rgb(102, 102, 102)',color:"blue"}}>Funds</Text>
+                     </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity  onPress={()=> this.props.navigation.navigate('Invest')}>
+                     <View style={{alignItems:'center'}}>
+                     <Image  source={require('../images/iicon.png')} tintColor='dimgrey' style={{height:35,width:35}} />
+                        {/* <IconUser name="user-alt" size={25} color='dimgrey'/> */}
+                        <Text style={{fontSize:14,color:'rgb(102, 102, 102)'}}>Invest</Text>
+                     </View>
+                    </TouchableOpacity>
+                 
+                </View>
+            </View> 
+            </View>         
+   );
+  }
+}
+const styles = StyleSheet.create({
+         container: {
+             flex: 1,
+             backgroundColor:"white",
+         },
+     logo:{
+     alignItems:'center',
+     marginTop:22,
+     },
+     sbmtbtn:{
+        color:"white",
+        fontSize:18,
+        alignSelf:'center'
+        },
+     touchOpBtnViewStyle:{
+        justifyContent:'center',
+        alignSelf:'center',
+        width:180,
+        right:0,
+        paddingLeft:0,
+        marginTop:20,
+        marginBottom:20,
+        paddingTop:10,
+        paddingBottom:10,
+        padding:0,
+        borderRadius:28, 
+        fontWeight: "bold",
+        // paddingVertical:400,
+        // paddingHorizontal:162,
+        backgroundColor:'#0046bb',
+        borderWidth:0,
+      },
+
+         headerText: {
+             paddingLeft: 38,
+             paddingTop: 16,
+             fontFamily: 'Roboto,sans-serif',
+             fontSize: 22,
+             color: 'white',
+             fontWeight: 'bold',
+
+         },
+         headerText2: {
+            paddingLeft: 28,
+            paddingTop: 16,
+            fontFamily: 'Roboto,sans-serif',
+            fontSize: 14,
+            color: 'black',
+            fontWeight: 'bold',
+        },
+        headerText3: {
+            paddingLeft: 28,
+            paddingTop: 16,
+            fontFamily: 'Roboto,sans-serif',
+            fontSize: 14,
+            color: 'dimgrey',
+            
+
+        },
+         
+         headerTextView2: {
+            backgroundColor: 'white',
+            height: 60,
+            flexDirection: 'row'
+        },
+         
+         headerTouchOpTxt2: {
+            paddingLeft: 18,
+            color: 'dimgrey'
+        },
+        
+        btn:{
+            backgroundColor: 'white',
+            margin: '4%' 
+        },
+        btnView:{
+            flex: 6
+        },
+        
+
+         footerTextView:{
+            marginTop:0, 
+            height: 60,
+            flexDirection: 'row',
+            alignItems: 'center', 
+            justifyContent:'space-around',
+            bottom:0,
+            fontWeight:"bold",
+            color:'blue' 
+       }           
+        
+    }
+)
+export default funds;
+
+
+
+                #Page-8 Invest Screen
+
+
+
+
+import React, { Component } from 'react';
+import { Text, View, ScrollView, StyleSheet, Image,
+        TouchableOpacity} from 'react-native';
+
+
+class invest extends Component{
+
+  render(){
+   return(
+    <View style={styles.container}>
+                     
+                        <View style={{backgroundColor:'white',height:100,width:400,alignItems:'center'}}>
+                       
+                        <TouchableOpacity>
+                          <Text style={{fontSize:22,fontWeight:'bold',right:10,top:20}}>Explore opportunities to put your</Text> 
+                          <Text style={{fontSize:22,fontWeight:'bold',right:10,top:20}}>money to work</Text>
+                          </TouchableOpacity>                      
+                         
+                          </View>
+              
+                   
+                       
+                        <ScrollView>
+                     <View style={styles.logo}>
+                       <View style={{backgroundColor:'#87ceeb',height:160,width:360,borderRadius:10}}>
+                       <Image  source={require('../images/golddg.png')}  style={[{height:110,width:110,left:250,bottom:15}]} />
+                           <Text style={{fontSize:16,fontWeight:'bold',left:20,bottom:90}}>Digital Gold</Text>
+                           <View style={{top:0}}>
+                           <Text  style={{fontSize:14,left:20,bottom:80}}>Invest in 24K Gold of 99.9% purity,</Text>
+                           <Text  style={{fontSize:14,left:20,bottom:80}}>safely and instantly with as low as</Text>
+                           <Text  style={{fontSize:14,left:20,bottom:80}}>₹1</Text>
+ 
+                           <View style={{left:240,top:10}}>
+                               <TouchableOpacity>
+                           <Text  style={{fontSize:16,left:0,bottom:80,color:'blue'}}>Gold portfolio</Text>
+                             </TouchableOpacity>
+                             <TouchableOpacity>
+                           <Text  style={{fontSize:16,right:220,bottom:100,color:'blue'}}>Buy or sell gold</Text>
+                             </TouchableOpacity>
+                           </View>
+                           </View>
+                       </View>
+                     </View> 
+
+                     <View> 
+                     <View style={styles.logo}>
+                     <View style={{backgroundColor:'#fffacd',height:160,width:360,borderRadius:10}}>
+                     <Image  source={require('../images/ipo.png')}  style={[{height:80,width:80,left:260}]} />
+                           <Text style={{fontSize:16,fontWeight:'bold',left:20,bottom:60}}>IPO</Text>
+                           <View style={{top:15}}>
+                           <Text  style={{fontSize:14,left:20,bottom:70}}>Apply for IPOs and be the first to</Text>
+                           <Text  style={{fontSize:14,left:20,bottom:70}}>invest in newly-listed Stocks</Text>
+
+ 
+                           <View style={{left:240,bottom:50}}>
+                               <TouchableOpacity>
+                           <Text  style={{fontSize:16,right:20,top:20,color:'blue'}}>My applications</Text>
+                             </TouchableOpacity>
+                             <TouchableOpacity>
+                           <Text  style={{fontSize:16,right:220,bottom:0,color:'blue'}}>View ongoing IPO</Text>
+                             </TouchableOpacity>
+                           </View>
+                           </View>
+                       </View>
+                     </View>
+                    </View>
+                    <View> 
+                     <View style={styles.logo}>
+                     <View style={{backgroundColor:'#f5f5f5',height:160,width:360,borderRadius:10}}>
+                     <Image  source={require('../images/mutual.png')}  style={[{height:80,width:80,left:260,top:10}]} />
+                           <Text style={{fontSize:16,fontWeight:'bold',left:20,bottom:60}}>Mutual Funds</Text>
+                           <View style={{bottom:60}}>
+                           <Text  style={{fontSize:14,left:20,top:10}}>Choose from 10,000+ top curated</Text>
+                           <Text  style={{fontSize:14,left:20,top:10}}>funds</Text>
+
+ 
+                           <View style={{left:240,top:10}}>
+                               <TouchableOpacity>
+                           <Text  style={{fontSize:16,right:20,top:40,color:'blue'}}>MF portfolio</Text>
+                             </TouchableOpacity>
+                             <TouchableOpacity>
+                           <Text  style={{fontSize:16,right:220,top:15,color:'blue'}}>View all funds</Text>
+                             </TouchableOpacity>
+                           </View>
+                           </View>
+                       </View>
+                     </View>
+                    </View>
+                    </ScrollView>
+                  
+                    
+
+             <View style={styles.footerTextView}>
+                   <TouchableOpacity onPress={()=> this.props.navigation.navigate('Watchlist')}>
+                    <View style={{alignItems:'center'}}>
+                        <Image  source={require('../images/wicon.png')}  style={[{height:35,width:35}]} />
+                        <Text style={{fontSize:14,color:'rgb(102, 102, 102)',paddingTop:0,}}>Watchlist</Text>
+                     </View>
+                    </TouchableOpacity>
+
+                   <TouchableOpacity  onPress={()=> this.props.navigation.navigate('Orders')}>
+                     <View style={{alignItems:'center'}}>
+                        <Image  source={require('../images/oicon.png')} tintColor='dimgrey' style={{height:35,width:35}} />
+                        <Text style={{fontSize:14,color:'rgb(102, 102, 102)',paddingTop:0}}>Orders</Text>
+                     </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity  onPress={()=> this.props.navigation.navigate('Portfolio')}>
+                     <View style={{alignItems:'center'}}>
+                        <Image  source={require('../images/picon.png')} tintColor='dimgrey' style={{height:35,width:35}} />
+                        <Text style={{fontSize:14,color:'rgb(102, 102, 102)'}}>Portfolio</Text>
+                     </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={()=> this.props.navigation.navigate('Funds')}>
+                     <View style={{alignItems:'center'}}>
+                     <Image  source={require('../images/ficon.png')} tintColor='dimgrey' style={{height:35,width:35}} />
+                        {/* <IconUser name="user-alt" size={25} color='dimgrey'/> */}
+                        <Text style={{fontSize:14,color:'rgb(102, 102, 102)'}}>Funds</Text>
+                     </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity >
+                     <View style={{alignItems:'center'}}>
+                     <Image  source={require('../images/iicon.png')} tintColor='blue' style={{height:35,width:35}} />
+                        {/* <IconUser name="user-alt" size={25} color='dimgrey'/> */}
+                        <Text style={{fontSize:14,color:'rgb(102, 102, 102)',color:"blue"}}>Invest</Text>
+                     </View>
+                    </TouchableOpacity>
+                 
+                </View>
+            </View>          
+   );
+  }
+}
+const styles = StyleSheet.create({
+         container: {
+             flex: 1,
+             backgroundColor:"white",
+         },
+     logo:{
+     alignItems:'center',
+     marginTop:22,
+     },
+     sbmtbtn:{
+        color:"white",
+        fontSize:18,
+        alignSelf:'center'
+        },
+    
+
+         headerText: {
+             paddingLeft: 38,
+             paddingTop: 16,
+             fontFamily: 'Roboto,sans-serif',
+             fontSize: 22,
+             color: 'white',
+             fontWeight: 'bold',
+
+         },
+         headerText2: {
+            paddingLeft: 28,
+            paddingTop: 16,
+            fontFamily: 'Roboto,sans-serif',
+            fontSize: 14,
+            color: 'dimgrey',
+            fontWeight: 'bold',
+
+        },
+         
+         headerTextView2: {
+            backgroundColor: 'white',
+            height: 60,
+            
+            alignItems:'center',
+            alignSelf:'center',
+            justifyContent:'center'
+        },
+         
+         headerTouchOpTxt2: {
+            paddingLeft: 18,
+            color: 'dimgrey'
+        },
+        
+        btn:{
+            backgroundColor: 'white',
+            margin: '4%' 
+        },
+        btnView:{
+            flex: 6
+        },
+        
+
+         footerTextView:{
+            marginTop:0, 
+            height: 60,
+            flexDirection: 'row',
+            alignItems: 'center', 
+            justifyContent:'space-around',
+            bottom:0,
+            fontWeight:"bold",
+            color:'blue' 
+       }           
+        
+    }
+)
+export default invest;
+
+      
+
+
+
+
+                     #Page-9 Package.json
+
+
+
+
+{
+  "name": "upstox",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@react-native-community/masked-view": "^0.1.11",
+    "@react-navigation/native": "^5.9.4",
+    "@react-navigation/stack": "^5.14.4",
+    "lottie-react-native": "^4.0.0",
+    "react": "17.0.1",
+    "react-native": "0.64.0",
+    "react-native-animated-splash-screen": "^2.0.5",
+    "react-native-elements": "^3.4.1",
+    "react-native-gesture-handler": "^1.10.3",
+    "react-native-reanimated": "^2.1.0",
+    "react-native-safe-area-context": "^3.2.0",
+    "react-native-screens": "^3.1.1",
+    "react-native-vector-icons": "^8.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/runtime": "^7.12.5",
+    "@react-native-community/eslint-config": "^2.0.0",
+    "babel-jest": "^26.6.3",
+    "eslint": "7.14.0",
+    "jest": "^26.6.3",
+    "metro-react-native-babel-preset": "^0.64.0",
+    "react-test-renderer": "17.0.1"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
